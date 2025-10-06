@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Song Rater</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+  </head>
+  <body>
+    <h1>🎵 Song Rater</h1>
+
+    <form id="songForm">
+      <label>Song Name:</label>
+      <input type="text" id="song" required />
+
+      <label>Artist:</label>
+      <input type="text" id="artist" list="artistList" />
+      <datalist id="artistList"></datalist>
+
+      <label>Genre:</label>
+      <select id="genre" required>
+        <option value="">Select</option>
+        <option>Pop</option>
+        <option>Rock</option>
+        <option>Rap</option>
+        <option>Country</option>
+        <option>Indie</option>
+        <option>R&B</option>
+        <option>Electronic</option>
+      </select>
+
+      <div class="slider-group">
+        <label>Nostalgia: <span id="nostalgiaValue">5</span></label>
+        <input type="range" id="nostalgia" min="1" max="10" value="5" />
+      </div>
+
+      <div class="slider-group">
+        <label>Lyricism: <span id="lyricismValue">5</span></label>
+        <input type="range" id="lyricism" min="1" max="10" value="5" />
+      </div>
+
+      <div class="slider-group">
+        <label>Catchiness: <span id="catchinessValue">5</span></label>
+        <input type="range" id="catchiness" min="1" max="10" value="5" />
+      </div>
+
+      <div class="slider-group">
+        <label>Novelty: <span id="noveltyValue">5</span></label>
+        <input type="range" id="novelty" min="1" max="10" value="5" />
+      </div>
+
+      <div class="slider-group">
+        <label>Iconicness: <span id="iconicnessValue">5</span></label>
+        <input type="range" id="iconicness" min="1" max="10" value="5" />
+      </div>
+
+      <label><input type="checkbox" id="special" /> Special song?</label>
+
+      <button type="submit">Add to Sheet</button>
+    </form>
+
+    <script src="script.js"></script>
+  </body>
+</html>
