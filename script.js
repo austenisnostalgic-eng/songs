@@ -9,11 +9,12 @@ const overallVal = document.getElementById("overallVal");
 
 const categories = ["nostalgia", "lyricism", "catchiness", "novelty", "iconicness"];
 
+// Switch label toggle
 specialSwitch.addEventListener("change", () => {
   switchLabel.textContent = specialSwitch.checked ? "Yes" : "No";
 });
 
-// Update category slider values
+// Category sliders update
 categories.forEach(id => {
   const slider = document.getElementById(id);
   const span = document.getElementById(id + "Val");
@@ -22,7 +23,7 @@ categories.forEach(id => {
   });
 });
 
-// Overall slider value
+// Overall manual slider
 overallSlider.addEventListener("input", () => {
   overallVal.textContent = overallSlider.value;
 });
@@ -32,11 +33,10 @@ form.addEventListener("submit", e => {
   e.preventDefault();
   const song = document.getElementById("songName").value;
 
-  // Determine artist
+  // Artist selection logic
   let artist = artistDropdown.value;
   if (artist === "" && newArtistInput.value.trim() !== "") {
     artist = newArtistInput.value.trim();
-    // Add new artist to dropdown
     const option = document.createElement("option");
     option.value = artist;
     option.textContent = artist;
@@ -46,24 +46,5 @@ form.addEventListener("submit", e => {
   const genre = document.getElementById("genre").value;
   const special = specialSwitch.checked ? "Yes" : "No";
   const overall = Number(overallSlider.value);
-  const values = categories.map(id => Number(document.getElementById(id).value));
+  const values = categories.map(i
 
-  const row = document.createElement("tr");
-  if (special === "Yes") row.classList.add("special");
-
-  row.innerHTML = `
-    <td>${song}</td>
-    <td>${artist}</td>
-    <td>${genre}</td>
-    <td>${special}</td>
-    <td>${overall}</td>
-    ${values.map(v => `<td>${v}</td>`).join("")}
-  `;
-
-  tbody.appendChild(row);
-
-  // Reset form
-  form.reset();
-  switchLabel.textContent = "No";
-  overallVal.textContent = overallSlider.value = 5;
-});
