@@ -37,6 +37,10 @@ form {
 .form-group {
     margin-bottom: 10px; /* reduced space */
 }
+.form-group-special {
+    margin-bottom: 10px; /* reduced space */
+    border: 0px;
+}
 
 label {
     display: block;
