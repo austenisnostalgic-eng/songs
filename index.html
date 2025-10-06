@@ -12,6 +12,7 @@
     <div class="container">
 
         <form id="songForm">
+
             <!-- Song Name -->
             <div class="form-group">
                 <input type="text" id="songName" required placeholder="Song Name">
@@ -38,65 +39,72 @@
                 </select>
             </div>
 
+            <!-- Special Song Toggle -->
+            <div class="form-group toggle-container">
+                <span class="toggle-label-main">Special Song?</span>
+                <div class="toggle-wrapper">
+                    <span class="toggle-label">No</span>
+                    <label class="switch">
+                        <input type="checkbox" id="specialSong">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Yes</span>
+                </div>
+            </div>
+
             <!-- Overall Rating -->
-            <div class="form-group">
-                <div class="rating-control">
-                    <span class="rating-label">Overall: <span id="overallValue">5</span></span>
-                    <div class="rating-buttons">
-                        <button type="button" class="rating-btn down" data-rating="overall">▼</button>
-                        <button type="button" class="rating-btn up" data-rating="overall">▲</button>
-                    </div>
+            <div class="form-group rating-control">
+                <span class="rating-label">Overall: <span id="overallValue">5</span></span>
+                <div class="rating-buttons">
+                    <button type="button" class="rating-btn down" data-rating="overall">▼</button>
+                    <button type="button" class="rating-btn up" data-rating="overall">▲</button>
                 </div>
             </div>
 
             <hr class="divider">
 
             <!-- Combined Individual Ratings -->
-            <div class="form-group" id="individualRatings">
-                <div class="rating-box">
-                    <div class="rating-control">
-                        <span class="rating-label">Nostalgia: <span id="nostalgiaValue">5</span></span>
-                        <div class="rating-buttons">
-                            <button type="button" class="rating-btn down" data-rating="nostalgia">▼</button>
-                            <button type="button" class="rating-btn up" data-rating="nostalgia">▲</button>
-                        </div>
+            <div class="form-group rating-box">
+                <div class="rating-control">
+                    <span class="rating-label">Nostalgia: <span id="nostalgiaValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="nostalgia">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="nostalgia">▲</button>
                     </div>
-            
-                    <div class="rating-control">
-                        <span class="rating-label">Lyricism: <span id="lyricismValue">5</span></span>
-                        <div class="rating-buttons">
-                            <button type="button" class="rating-btn down" data-rating="lyricism">▼</button>
-                            <button type="button" class="rating-btn up" data-rating="lyricism">▲</button>
-                        </div>
+                </div>
+
+                <div class="rating-control">
+                    <span class="rating-label">Lyricism: <span id="lyricismValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="lyricism">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="lyricism">▲</button>
                     </div>
-            
-                    <div class="rating-control">
-                        <span class="rating-label">Novelty: <span id="noveltyValue">5</span></span>
-                        <div class="rating-buttons">
-                            <button type="button" class="rating-btn down" data-rating="novelty">▼</button>
-                            <button type="button" class="rating-btn up" data-rating="novelty">▲</button>
-                        </div>
+                </div>
+
+                <div class="rating-control">
+                    <span class="rating-label">Novelty: <span id="noveltyValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="novelty">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="novelty">▲</button>
                     </div>
-            
-                    <div class="rating-control">
-                        <span class="rating-label">Catchiness: <span id="catchinessValue">5</span></span>
-                        <div class="rating-buttons">
-                            <button type="button" class="rating-btn down" data-rating="catchiness">▼</button>
-                            <button type="button" class="rating-btn up" data-rating="catchiness">▲</button>
-                        </div>
+                </div>
+
+                <div class="rating-control">
+                    <span class="rating-label">Catchiness: <span id="catchinessValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="catchiness">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="catchiness">▲</button>
                     </div>
-            
-                    <div class="rating-control">
-                        <span class="rating-label">Iconicness: <span id="iconicnessValue">5</span></span>
-                        <div class="rating-buttons">
-                            <button type="button" class="rating-btn down" data-rating="iconicness">▼</button>
-                            <button type="button" class="rating-btn up" data-rating="iconicness">▲</button>
-                        </div>
+                </div>
+
+                <div class="rating-control">
+                    <span class="rating-label">Iconicness: <span id="iconicnessValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="iconicness">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="iconicness">▲</button>
                     </div>
                 </div>
             </div>
-
-
 
             <!-- Submit Button -->
             <button type="submit" class="submit-btn">Add Song</button>
