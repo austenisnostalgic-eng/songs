@@ -32,21 +32,26 @@
         <option>Electronic</option>
       </select>
 
-      <label>Special Song:</label>
-      <div class="switch">
-        <input type="checkbox" id="specialSong">
-        <span class="slider round"></span>
+      <!-- Inline Special Song switch -->
+      <div class="switch-container">
+        <span>Special Song:</span>
+        <label class="switch">
+          <input type="checkbox" id="specialSong">
+          <span class="slider round"></span>
+        </label>
         <span class="switch-label" id="switchLabel">No</span>
       </div>
 
-      <div class="ratings">
-        <label>Overall (manual):</label>
-        <div class="slider-wrapper">
-          <input type="range" id="overall" min="1" max="10" value="5">
-          <span id="overallVal">5</span>
-        </div>
-        <hr>
+      <!-- Overall manual -->
+      <label>Overall (manual):</label>
+      <div class="slider-wrapper">
+        <input type="range" id="overall" min="1" max="10" value="5">
+        <span id="overallVal">5</span>
+      </div>
+      <hr>
 
+      <!-- Aspect sliders -->
+      <div class="ratings">
         <label>Nostalgia:</label>
         <div class="slider-wrapper">
           <input type="range" class="category" id="nostalgia" min="1" max="10" value="5">
@@ -81,6 +86,7 @@
       <button type="submit">Add Song</button>
     </form>
 
+    <!-- Table only, no extra text -->
     <div class="table-wrapper">
       <table id="songTable">
         <thead>
