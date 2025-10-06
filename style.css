@@ -1,4 +1,3 @@
-/* General mobile layout */
 body {
   font-family: Arial, sans-serif;
   background: #121212;
@@ -9,38 +8,33 @@ body {
 
 .container {
   width: 100%;
-  max-width: 420px; /* iPhone width-ish */
+  max-width: 420px;
   margin: auto;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 20px;
   font-size: 24px;
+  margin-bottom: 20px;
 }
 
-/* Form styling */
 form {
-  background: #1e1e1e;
-  padding: 20px;
-  border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-label {
-  font-size: 16px;
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
 }
 
 input[type="text"], select {
-  width: 100%;
   padding: 12px;
   border-radius: 8px;
   border: none;
   background: #2a2a2a;
   color: white;
   font-size: 16px;
+  width: 100%;
 }
 
 button {
@@ -58,7 +52,6 @@ button:hover {
   background-color: #45a049;
 }
 
-/* Slider styling */
 .slider-wrapper {
   display: flex;
   justify-content: space-between;
@@ -71,7 +64,7 @@ input[type="range"] {
   height: 20px;
 }
 
-/* Switch styling */
+/* Switch */
 .switch {
   position: relative;
   display: inline-block;
@@ -88,10 +81,7 @@ input[type="range"] {
 .slider.round {
   position: absolute;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background-color: #ccc;
   border-radius: 28px;
   transition: 0.4s;
@@ -123,13 +113,16 @@ input[type="range"] {
   vertical-align: middle;
 }
 
-/* Table styling for mobile */
+/* Table mobile-friendly */
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
-  overflow-x: auto;
-  display: block;
 }
 
 th, td {
@@ -146,3 +139,4 @@ hr {
   border: 0.5px solid #555;
   margin: 8px 0;
 }
+
