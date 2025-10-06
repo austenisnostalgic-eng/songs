@@ -1,0 +1,15 @@
+{
+  "name": "Song Rater",
+  "short_name": "SongRater",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#111",
+  "theme_color": "#4caf50",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
