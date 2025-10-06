@@ -52,19 +52,14 @@ button:hover {
   background-color: #45a049;
 }
 
-.slider-wrapper {
+/* Inline switch */
+.switch-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-input[type="range"] {
-  flex: 1;
-  margin-right: 10px;
-  height: 20px;
-}
-
-/* Switch */
 .switch {
   position: relative;
   display: inline-block;
@@ -108,9 +103,40 @@ input[type="range"] {
 }
 
 .switch-label {
-  margin-left: 70px;
   font-size: 16px;
-  vertical-align: middle;
+}
+
+/* Sliders / meters bigger */
+.slider-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input[type="range"] {
+  flex: 1;
+  margin-right: 10px;
+  height: 40px;
+  border-radius: 10px;
+  -webkit-appearance: none;
+  background: #4a4a4a;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 40px;
+  height: 40px;
+  background: #4CAF50;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 40px;
+  height: 40px;
+  background: #4CAF50;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 /* Table mobile-friendly */
@@ -139,4 +165,3 @@ hr {
   border: 0.5px solid #555;
   margin: 8px 0;
 }
-
