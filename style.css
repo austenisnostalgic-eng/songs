@@ -226,17 +226,6 @@ input:checked + .slider:before {
     opacity: 0.9;
 }
 
-/* Combined Ratings Box */
-.rating-box {
-    padding: 12px;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    background: #f7fafc;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
 /* Divider */
 .divider {
     border: none;
