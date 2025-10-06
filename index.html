@@ -17,22 +17,19 @@
         <form id="songForm">
             <!-- Song Name -->
             <div class="form-group">
-                <label for="songName">Song Name</label>
-                <input type="text" id="songName" required placeholder="Enter song name">
+                <input type="text" id="songName" required placeholder="Song Name">
             </div>
 
             <!-- Artist Name with Autocomplete -->
             <div class="form-group">
-                <label for="artistName">Artist Name</label>
-                <input type="text" id="artistName" required placeholder="Enter artist name" autocomplete="off">
+                <input type="text" id="artistName" required placeholder="Artist Name" autocomplete="off">
                 <div id="artistSuggestions" class="suggestions"></div>
             </div>
 
             <!-- Genre Dropdown -->
             <div class="form-group">
-                <label for="genre">Genre</label>
                 <select id="genre" required>
-                    <option value="">Select a genre</option>
+                    <option value="">Genre</option>
                     <option value="Pop">Pop</option>
                     <option value="Rock">Rock</option>
                     <option value="Rap">Rap</option>
@@ -46,22 +43,23 @@
 
             <!-- Special Song Toggle -->
             <div class="form-group">
-                <label>Special Song?</label>
                 <div class="toggle-container">
-                    <span class="toggle-label">No</span>
-                    <label class="switch">
-                        <input type="checkbox" id="specialSong">
-                        <span class="slider"></span>
-                    </label>
-                    <span class="toggle-label">Yes</span>
+                    <span class="toggle-label-main">Special Song?</span>
+                    <div class="toggle-wrapper">
+                        <span class="toggle-label">No</span>
+                        <label class="switch">
+                            <input type="checkbox" id="specialSong">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="toggle-label">Yes</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Overall Rating -->
             <div class="form-group">
-                <label>Overall Rating</label>
                 <div class="rating-control">
-                    <span class="rating-label">Overall Rating: <span id="overallValue">5</span></span>
+                    <span class="rating-label">Overall: <span id="overallValue">5</span></span>
                     <div class="rating-buttons">
                         <button type="button" class="rating-btn down" data-rating="overall">▼</button>
                         <button type="button" class="rating-btn up" data-rating="overall">▲</button>
