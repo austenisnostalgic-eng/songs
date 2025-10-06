@@ -1,42 +1,44 @@
-// CHANGE THIS to your Google Apps Script web app URL
-const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE";
+const form = document.getElementById("songForm");
+const tbody = document.querySelector("#songTable tbody");
+const switchInput = document.getElementById("specialSong");
+const switchLabel = document.getElementById("switchLabel");
 
-document.querySelectorAll('input[type="range"]').forEach((slider) => {
-  slider.addEventListener("input", () => {
-    document.getElementById(slider.id + "Value").textContent = slider.value;
+switchInput.addEventListener("change", () => {
+  switchLabel.textContent = switchInput.checked ? "Yes" : "No";
+});
+
+const ratingFields = ["overall", "nostalgia", "lyricism", "catchiness", "novelty", "iconicness"];
+ratingFields.forEach(id => {
+  const input = document.getElementById(id);
+  const span = document.getElementById(id + "Val");
+  input.addEventListener("input", () => {
+    span.textContent = input.value;
   });
 });
 
-document.getElementById("songForm").addEventListener("submit", async (e) => {
+form.addEventListener("submit", e => {
   e.preventDefault();
 
-  const data = {
-    song: document.getElementById("song").value,
-    artist: document.getElementById("artist").value,
-    genre: document.getElementById("genre").value,
-    nostalgia: Number(document.getElementById("nostalgia").value),
-    lyricism: Number(document.getElementById("lyricism").value),
-    catchiness: Number(document.getElementById("catchiness").value),
-    novelty: Number(document.getElementById("novelty").value),
-    iconicness: Number(document.getElementById("iconicness").value),
-    special: document.getElementById("special").checked,
-  };
+  const song = document.getElementById("songName").value;
+  const artist = document.getElementById("artistName").value;
+  const genre = document.getElementById("genre").value;
+  const special = switchInput.checked ? "Yes" : "No";
 
-  data.average = (
-    (data.nostalgia +
-      data.lyricism +
-      data.catchiness +
-      data.novelty +
-      data.iconicness) /
-    5
-  ).toFixed(2);
+  const values = ratingFields.map(id => Number(document.getElementById(id).value));
+  const overall = values[0];
 
-  await fetch(GOOGLE_SCRIPT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
+  const row = document.createElement("tr");
+  if (special === "Yes") row.classList.add("special");
 
-  alert("✅ Added to spreadsheet!");
-  e.target.reset();
+  row.innerHTML = `
+    <td>${song}</td>
+    <td>${artist}</td>
+    <td>${genre}</td>
+    <td>${special}</td>
+    ${values.map(v => `<td>${v}</td>`).join("")}
+  `;
+
+  tbody.appendChild(row);
+  form.reset();
+  switchLabel.textContent = "No";
 });
