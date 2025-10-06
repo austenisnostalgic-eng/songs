@@ -98,12 +98,29 @@ select:focus {
 .toggle-container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: #f7fafc;
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+}
+
+.toggle-label-main {
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 16px;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
     gap: 12px;
 }
 
 .toggle-label {
     font-weight: 500;
     color: #718096;
+    font-size: 14px;
 }
 
 .switch {
