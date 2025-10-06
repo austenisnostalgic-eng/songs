@@ -173,7 +173,7 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: space-between; /* label on left, buttons on right */
-    padding: 12px 15px;
+    padding: 8px 12px;
     background: #f7fafc;
     border-radius: 10px;
     border: 2px solid #e2e8f0;
@@ -191,10 +191,9 @@ input:checked + .slider:before {
     font-size: 20px;
 }
 
-/* Buttons arranged vertically but together */
 .rating-buttons {
     display: flex;
-    flex-direction: row; /* arrows stacked vertically */
+    flex-direction: row;
     gap: 8px;
 }
 
