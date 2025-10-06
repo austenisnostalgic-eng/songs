@@ -1,111 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Song Rater</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6366f1">
+    <title>Song Rating App</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>🎵 Song Rater</h1>
-    <form id="songForm">
+    <div class="container">
+        <header>
+            <h1>🎵 Song Rating</h1>
+        </header>
 
-      <label>Song Name:</label>
-      <input type="text" id="songName" required>
+        <form id="songForm">
+            <!-- Song Name -->
+            <div class="form-group">
+                <label for="songName">Song Name</label>
+                <input type="text" id="songName" required placeholder="Enter song name">
+            </div>
 
-      <label>Artist:</label>
-      <select id="artistDropdown">
-        <option value="">-- Select Artist --</option>
-      </select>
-      <input type="text" id="newArtist" placeholder="Add new artist if not listed">
+            <!-- Artist Name with Autocomplete -->
+            <div class="form-group">
+                <label for="artistName">Artist Name</label>
+                <input type="text" id="artistName" required placeholder="Enter artist name" autocomplete="off">
+                <div id="artistSuggestions" class="suggestions"></div>
+            </div>
 
-      <label>Genre:</label>
-      <select id="genre">
-        <option value="">-- Select Genre --</option>
-        <option>Rock</option>
-        <option>Pop</option>
-        <option>Rap</option>
-        <option>Country</option>
-        <option>R&B</option>
-        <option>Jazz</option>
-        <option>Electronic</option>
-      </select>
+            <!-- Genre Dropdown -->
+            <div class="form-group">
+                <label for="genre">Genre</label>
+                <select id="genre" required>
+                    <option value="">Select a genre</option>
+                    <option value="Pop">Pop</option>
+                    <option value="Rock">Rock</option>
+                    <option value="Rap">Rap</option>
+                    <option value="Jazz">Jazz</option>
+                    <option value="EDM">EDM</option>
+                    <option value="Country">Country</option>
+                    <option value="OST">OST</option>
+                    <option value="Etc">Etc</option>
+                </select>
+            </div>
 
-      <!-- Special Song switch inline -->
-      <div class="switch-container">
-        <span>Special Song:</span>
-        <label class="switch">
-          <input type="checkbox" id="specialSong">
-          <span class="slider round"></span>
-        </label>
-        <span class="switch-label" id="switchLabel">No</span>
-      </div>
+            <!-- Special Song Toggle -->
+            <div class="form-group">
+                <label>Special Song?</label>
+                <div class="toggle-container">
+                    <span class="toggle-label">No</span>
+                    <label class="switch">
+                        <input type="checkbox" id="specialSong">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Yes</span>
+                </div>
+            </div>
 
-      <!-- Overall manual slider -->
-      <label>Overall (manual):</label>
-      <div class="slider-wrapper">
-        <input type="range" id="overall" min="1" max="10" value="5">
-        <span id="overallVal">5</span>
-      </div>
-      <hr>
+            <!-- Overall Rating -->
+            <div class="form-group">
+                <label>Overall Rating</label>
+                <div class="rating-control">
+                    <span class="rating-label">Overall Rating: <span id="overallValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="overall">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="overall">▲</button>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Individual aspect sliders -->
-      <div class="ratings">
-        <label>Nostalgia:</label>
-        <div class="slider-wrapper">
-          <input type="range" class="category" id="nostalgia" min="1" max="10" value="5">
-          <span id="nostalgiaVal">5</span>
+            <hr class="divider">
+
+            <!-- Individual Ratings -->
+            <div class="form-group">
+                <label>Nostalgia</label>
+                <div class="rating-control">
+                    <span class="rating-label">Rating: <span id="nostalgiaValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="nostalgia">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="nostalgia">▲</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Lyricism</label>
+                <div class="rating-control">
+                    <span class="rating-label">Rating: <span id="lyricismValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="lyricism">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="lyricism">▲</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Novelty</label>
+                <div class="rating-control">
+                    <span class="rating-label">Rating: <span id="noveltyValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="novelty">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="novelty">▲</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Catchiness</label>
+                <div class="rating-control">
+                    <span class="rating-label">Rating: <span id="catchinessValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="catchiness">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="catchiness">▲</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Iconicness</label>
+                <div class="rating-control">
+                    <span class="rating-label">Rating: <span id="iconicnessValue">5</span></span>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn down" data-rating="iconicness">▼</button>
+                        <button type="button" class="rating-btn up" data-rating="iconicness">▲</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Add Song</button>
+        </form>
+
+        <!-- Confirmation Screen (Hidden by default) -->
+        <div id="confirmationScreen" class="confirmation hidden">
+            <div class="success-icon">✓</div>
+            <h2>Song Added Successfully!</h2>
+            <div id="songDetails"></div>
+            <button type="button" id="resetBtn" class="reset-btn">Add Another Song</button>
         </div>
-
-        <label>Lyricism:</label>
-        <div class="slider-wrapper">
-          <input type="range" class="category" id="lyricism" min="1" max="10" value="5">
-          <span id="lyricismVal">5</span>
-        </div>
-
-        <label>Catchiness:</label>
-        <div class="slider-wrapper">
-          <input type="range" class="category" id="catchiness" min="1" max="10" value="5">
-          <span id="catchinessVal">5</span>
-        </div>
-
-        <label>Novelty:</label>
-        <div class="slider-wrapper">
-          <input type="range" class="category" id="novelty" min="1" max="10" value="5">
-          <span id="noveltyVal">5</span>
-        </div>
-
-        <label>Iconicness:</label>
-        <div class="slider-wrapper">
-          <input type="range" class="category" id="iconicness" min="1" max="10" value="5">
-          <span id="iconicnessVal">5</span>
-        </div>
-      </div>
-
-      <button type="submit">Add Song</button>
-    </form>
-
-    <div class="table-wrapper">
-      <table id="songTable">
-        <thead>
-          <tr>
-            <th>Song</th>
-            <th>Artist</th>
-            <th>Genre</th>
-            <th>Special?</th>
-            <th>Overall</th>
-            <th>Nostalgia</th>
-            <th>Lyricism</th>
-            <th>Catchiness</th>
-            <th>Novelty</th>
-            <th>Iconicness</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
     </div>
-  </div>
-  <script src="script.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>
