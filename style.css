@@ -16,12 +16,6 @@ body {
     overflow: hidden;
 }
 
-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    text-align: center;
-}
-
 header h1 {
     font-size: 24px;
     font-weight: 600;
