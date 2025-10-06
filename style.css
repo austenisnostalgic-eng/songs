@@ -28,10 +28,6 @@ form {
 .form-group {
     margin-bottom: 10px; /* reduced space */
 }
-.form-group-special {
-    margin-bottom: 10px; /* reduced space */
-    border: 0px;
-}
 
 label {
     display: block;
@@ -170,6 +166,17 @@ input:checked + .slider:before {
     background: #f7fafc;
     border-radius: 10px;
     border: 2px solid #e2e8f0;
+    margin-bottom: 10px;
+}
+.rating-control-special {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* label on left, buttons on right */
+    width: 100%;
+    padding: 8px 12px;
+    background: #f7fafc;
+    border-radius: 10px;
+    border: 0px solid #e2e8f0;
     margin-bottom: 10px;
 }
 
