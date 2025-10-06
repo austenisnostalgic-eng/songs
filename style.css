@@ -8,7 +8,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    padding: 20px;
+    padding: 15px;
     color: #333;
 }
 
@@ -24,27 +24,27 @@ body {
 header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 30px 20px;
+    padding: 25px 15px;
     text-align: center;
 }
 
 header h1 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 600;
 }
 
 form {
-    padding: 30px 20px;
+    padding: 20px 15px;
 }
 
 .form-group {
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* reduced space */
 }
 
 label {
     display: block;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     color: #4a5568;
     font-size: 14px;
 }
@@ -52,7 +52,7 @@ label {
 input[type="text"],
 select {
     width: 100%;
-    padding: 12px 15px;
+    padding: 10px 12px;
     border: 2px solid #e2e8f0;
     border-radius: 10px;
     font-size: 16px;
@@ -99,7 +99,7 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 15px;
+    padding: 10px 12px;
     background: #f7fafc;
     border-radius: 10px;
     border: 2px solid #e2e8f0;
@@ -114,7 +114,7 @@ select:focus {
 .toggle-wrapper {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
 }
 
 .toggle-label {
@@ -126,8 +126,8 @@ select:focus {
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 50px;
+    height: 28px;
 }
 
 .switch input {
@@ -151,10 +151,10 @@ select:focus {
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
     background-color: white;
     transition: 0.4s;
     border-radius: 50%;
@@ -165,37 +165,42 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-    transform: translateX(26px);
+    transform: translateX(22px);
 }
 
 /* Rating Controls */
 .rating-control {
-    padding: 4px 12px;
-    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: #f7fafc;
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
 }
 
 .rating-label {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     color: #2d3748;
 }
 
 .rating-label span {
     color: #667eea;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .rating-buttons {
     display: flex;
-    gap: 10px;
+    gap: 6px;
 }
 
 .rating-btn {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border: none;
     border-radius: 10px;
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
     transition: all 0.2s;
     font-weight: bold;
@@ -218,11 +223,22 @@ input:checked + .slider:before {
     opacity: 0.9;
 }
 
+/* Combined Ratings Box */
+.rating-box {
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f7fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 /* Divider */
 .divider {
     border: none;
     border-top: 2px solid #e2e8f0;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 /* Submit Button */
@@ -251,7 +267,7 @@ input:checked + .slider:before {
 
 /* Confirmation Screen */
 .confirmation {
-    padding: 40px 20px;
+    padding: 30px 20px;
     text-align: center;
 }
 
@@ -260,16 +276,16 @@ input:checked + .slider:before {
 }
 
 .success-icon {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
-    font-size: 50px;
+    font-size: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
+    margin: 0 auto 15px;
     animation: scaleIn 0.5s ease-out;
 }
 
@@ -284,21 +300,21 @@ input:checked + .slider:before {
 
 .confirmation h2 {
     color: #2d3748;
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-bottom: 15px;
+    font-size: 22px;
 }
 
 #songDetails {
     background: #f7fafc;
-    padding: 20px;
+    padding: 15px;
     border-radius: 12px;
-    margin: 20px 0;
+    margin: 15px 0;
     text-align: left;
     border: 2px solid #e2e8f0;
 }
 
 #songDetails p {
-    margin: 8px 0;
+    margin: 6px 0;
     color: #4a5568;
     font-size: 14px;
 }
@@ -327,7 +343,7 @@ input:checked + .slider:before {
 /* Mobile Optimizations */
 @media (max-width: 480px) {
     body {
-        padding: 10px;
+        padding: 8px;
     }
 
     .container {
@@ -335,20 +351,32 @@ input:checked + .slider:before {
     }
 
     header {
-        padding: 25px 15px;
+        padding: 20px 12px;
     }
 
     header h1 {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     form {
-        padding: 20px 15px;
+        padding: 15px 12px;
     }
 
     .rating-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .toggle-container {
+        padding: 8px 10px;
+    }
+
+    .rating-control {
+        padding: 6px 8px;
+    }
+
+    .divider {
+        margin: 15px 0;
     }
 }
