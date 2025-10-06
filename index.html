@@ -10,11 +10,15 @@
   <div class="container">
     <h1>🎵 Song Rater</h1>
     <form id="songForm">
+
       <label>Song Name:</label>
       <input type="text" id="songName" required>
 
       <label>Artist:</label>
-      <input type="text" id="artistName" placeholder="Type artist name..." required>
+      <select id="artistDropdown">
+        <option value="">-- Select Artist --</option>
+      </select>
+      <input type="text" id="newArtist" placeholder="Add new artist if not listed">
 
       <label>Genre:</label>
       <select id="genre">
@@ -36,9 +40,9 @@
       </div>
 
       <div class="ratings">
-        <label>Overall (auto-calculated):</label>
+        <label>Overall (manual):</label>
         <div class="slider-wrapper">
-          <input type="range" id="overall" min="1" max="10" value="5" disabled>
+          <input type="range" id="overall" min="1" max="10" value="5">
           <span id="overallVal">5</span>
         </div>
         <hr>
@@ -77,23 +81,26 @@
       <button type="submit">Add Song</button>
     </form>
 
-    <table id="songTable">
-      <thead>
-        <tr>
-          <th>Song</th>
-          <th>Artist</th>
-          <th>Genre</th>
-          <th>Special?</th>
-          <th>Overall</th>
-          <th>Nostalgia</th>
-          <th>Lyricism</th>
-          <th>Catchiness</th>
-          <th>Novelty</th>
-          <th>Iconicness</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="table-wrapper">
+      <table id="songTable">
+        <thead>
+          <tr>
+            <th>Song</th>
+            <th>Artist</th>
+            <th>Genre</th>
+            <th>Special?</th>
+            <th>Overall</th>
+            <th>Nostalgia</th>
+            <th>Lyricism</th>
+            <th>Catchiness</th>
+            <th>Novelty</th>
+            <th>Iconicness</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
