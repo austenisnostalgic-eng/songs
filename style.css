@@ -185,10 +185,6 @@ input:checked + .slider:before {
     font-size: 20px;
 }
 
-.rating-box {
-    gap: 8px;
-}
-
 .rating-buttons {
     display: flex;
     gap: 10px;
