@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Song Rater</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <h1>🎵 Song Rater</h1>
-
     <form id="songForm">
       <label>Song Name:</label>
-      <input type="text" id="songName" required />
+      <input type="text" id="songName" required>
 
       <label>Artist:</label>
-      <input type="text" id="artistName" placeholder="Type artist name..." required />
+      <input type="text" id="artistName" placeholder="Type artist name..." required>
 
       <label>Genre:</label>
       <select id="genre">
@@ -32,36 +31,47 @@
       <label>Special Song:</label>
       <div class="switch">
         <input type="checkbox" id="specialSong">
-        <span class="slider"></span>
+        <span class="slider round"></span>
         <span class="switch-label" id="switchLabel">No</span>
       </div>
 
       <div class="ratings">
-        <label>Overall:</label>
-        <input type="range" id="overall" min="1" max="10" value="5" />
-        <span id="overallVal">5</span>
-
-        <hr />
+        <label>Overall (auto-calculated):</label>
+        <div class="slider-wrapper">
+          <input type="range" id="overall" min="1" max="10" value="5" disabled>
+          <span id="overallVal">5</span>
+        </div>
+        <hr>
 
         <label>Nostalgia:</label>
-        <input type="range" id="nostalgia" min="1" max="10" value="5" />
-        <span id="nostalgiaVal">5</span>
+        <div class="slider-wrapper">
+          <input type="range" class="category" id="nostalgia" min="1" max="10" value="5">
+          <span id="nostalgiaVal">5</span>
+        </div>
 
         <label>Lyricism:</label>
-        <input type="range" id="lyricism" min="1" max="10" value="5" />
-        <span id="lyricismVal">5</span>
+        <div class="slider-wrapper">
+          <input type="range" class="category" id="lyricism" min="1" max="10" value="5">
+          <span id="lyricismVal">5</span>
+        </div>
 
         <label>Catchiness:</label>
-        <input type="range" id="catchiness" min="1" max="10" value="5" />
-        <span id="catchinessVal">5</span>
+        <div class="slider-wrapper">
+          <input type="range" class="category" id="catchiness" min="1" max="10" value="5">
+          <span id="catchinessVal">5</span>
+        </div>
 
         <label>Novelty:</label>
-        <input type="range" id="novelty" min="1" max="10" value="5" />
-        <span id="noveltyVal">5</span>
+        <div class="slider-wrapper">
+          <input type="range" class="category" id="novelty" min="1" max="10" value="5">
+          <span id="noveltyVal">5</span>
+        </div>
 
         <label>Iconicness:</label>
-        <input type="range" id="iconicness" min="1" max="10" value="5" />
-        <span id="iconicnessVal">5</span>
+        <div class="slider-wrapper">
+          <input type="range" class="category" id="iconicness" min="1" max="10" value="5">
+          <span id="iconicnessVal">5</span>
+        </div>
       </div>
 
       <button type="submit">Add Song</button>
