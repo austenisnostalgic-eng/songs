@@ -184,7 +184,6 @@ input:checked + .slider:before {
     font-size: 18px;
     font-weight: 600;
     color: #2d3748;
-    width: 150px;
 }
 
 .rating-label span {
