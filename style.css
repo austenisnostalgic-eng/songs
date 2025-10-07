@@ -185,6 +185,11 @@ input:checked + .slider:before {
     font-weight: 600;
 }
 
+.rating-inline {
+    display: inline-block;
+    width: 50px;
+}
+
 .rating-label {
     font-size: 18px;
     font-weight: 600;
