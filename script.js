@@ -199,7 +199,7 @@ updateRatingDisplays();
 
 // Function to send song data to Google Sheets
 function sendToSheet(songData) {
-    fetch('https://script.google.com/macros/s/AKfycbyUfA_uw_Jk4y9NWoIYpTcdV43HTubYRhSn8TeBdaUweyujUiXSFLg9yDLvFzmHOot_/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbx2R0gdS8LpsyTLCvJerHRDwpiIe3ZUVDF9q4Z8yDc8-NDHDLqvYxv-oQvM55-YsUFW/exec', {
         method: 'POST',
         body: JSON.stringify(songData)
     })
