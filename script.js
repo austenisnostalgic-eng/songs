@@ -125,98 +125,58 @@ if (window.__songRater_initialized) {
   }
 
   /* -------------------------
-     Form submission handler (single place)
-     ------------------------- */
-  async function handleSubmit(e) {
-    e.preventDefault();
+   Form submission (with listener protection)
+   ------------------------- */
+function handleSubmit(e) {
+  e.preventDefault();
 
-    // guard: don't submit multiple times concurrently
-    if (songForm.dataset.submitting === "true") {
-      console.log('songRater: submission already in progress - ignoring duplicate click.');
-      return;
-    }
+  const songData = {
+    songName: document.getElementById('songName').value || '',
+    artistName: document.getElementById('artistName').value || '',
+    genre: document.getElementById('genre').value || '',
+    ratings: { ...ratings },
+    timestamp: new Date().toISOString()
+  };
 
-    const songName = (document.getElementById('songName')?.value || '').trim();
-    const artistName = (document.getElementById('artistName')?.value || '').trim();
-    const genre = (document.getElementById('genre')?.value || '').trim();
-
-    const songData = {
-      songName,
-      artistName,
-      genre,
-      ratings: { ...ratings },
-      // still include timestamp for sheet, but dedup key excludes it
-      timestamp: new Date().toISOString()
-    };
-
-    // dedup logic: skip identical submission within N ms
-    const dedupKey = makeDedupKey(songData.songName, songData.artistName, songData.genre, songData.ratings);
-    const now = Date.now();
-    const lastKey = window.__songRater_lastKey || null;
-    const lastTime = window.__songRater_lastTime || 0;
-
-    if (lastKey === dedupKey && (now - lastTime) < 5000) {
-      console.log('songRater: duplicate submission suppressed (dedup).');
-      return;
-    }
-
-    // update last sent info
-    window.__songRater_lastKey = dedupKey;
-    window.__songRater_lastTime = now;
-
-    // add artist to memory
-    if (songData.artistName && !artists.includes(songData.artistName)) {
-      artists.push(songData.artistName);
-      artists.sort();
-    }
-
-    console.log('songRater: submitting', songData);
-
-    // UI lock
-    songForm.dataset.submitting = "true";
-    const submitBtn = songForm.querySelector('button[type="submit"]');
-    if (submitBtn) submitBtn.disabled = true;
-
-    // send to Google Apps Script web app
-    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbw3LP9QJMtt__dkTQv805Me9SX6hRchAj8bnsHA6leBJeOu_7c-GsVCEyGW_W627zYv/exec';
-
-    try {
-      // Use no-cors if your Apps Script doesn't send CORS headers.
-      // If you control the Web App and can add CORS headers, remove mode:'no-cors' to get full responses.
-      await fetch(WEBAPP_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(songData)
-      });
-
-      console.log('songRater: fetch completed (server may have received it).');
-      showConfirmation(songData);
-    } catch (err) {
-      console.error('songRater: error sending to Google Sheets', err);
-      // still show confirmation so UX isn't broken; decide if you want to show error instead
-      showConfirmation(songData);
-    } finally {
-      // release UI lock
-      songForm.dataset.submitting = "false";
-      if (submitBtn) submitBtn.disabled = false;
-      // keep lastKey/time so near-duplicates remain suppressed for a short window
-      window.__songRater_lastTime = Date.now();
-    }
+  // Add artist to in-memory list if new
+  if (songData.artistName && !artists.includes(songData.artistName)) {
+    artists.push(songData.artistName);
+    artists.sort();
   }
 
-  // Attach submit listener once
-  if (songForm) {
-    if (!songForm.dataset.listenerAdded) {
-      songForm.dataset.listenerAdded = "true";
-      songForm.addEventListener('submit', handleSubmit);
-      console.log('songRater: submit listener attached.');
-    } else {
-      console.log('songRater: submit listener already marked as added.');
-    }
-  } else {
-    console.warn('songRater: songForm not found in DOM.');
+  console.log('Submitting song data:', songData);
+
+  const submitBtn = songForm.querySelector('button[type="submit"]');
+  if (submitBtn) submitBtn.disabled = true;
+
+  fetch('https://script.google.com/macros/s/AKfycbw3LP9QJMtt__dkTQv805Me9SX6hRchAj8bnsHA6leBJeOu_7c-GsVCEyGW_W627zYv/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(songData)
+  })
+  .then(() => {
+    console.log('Song successfully sent!');
+    showConfirmation(songData);
+  })
+  .catch(err => console.error('Error sending to Google Sheets:', err))
+  .finally(() => {
+    if (submitBtn) submitBtn.disabled = false;
+  });
+}
+
+// ✅ ADD THIS SECTION RIGHT AFTER THE FUNCTION ABOVE
+if (songForm) {
+  // Remove any duplicate listeners (important for PWA reloads)
+  songForm.removeEventListener('submit', handleSubmit);
+
+  // Add the listener only once
+  if (!songForm.dataset.listenerAdded) {
+    songForm.dataset.listenerAdded = "true";
+    songForm.addEventListener('submit', handleSubmit);
+    console.log('✅ Submit listener attached once.');
   }
+}
 
   /* -------------------------
      Confirmation / reset
