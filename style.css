@@ -87,7 +87,8 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 12px;
+    padding: 10px;
+    height: 20px;
     background: #f7fafc;
     border-radius: 10px;
     border: 2px solid #e2e8f0;
