@@ -23,6 +23,7 @@ header h1 {
 
 standard {
     height: 40px;
+    justify-content: center;
 }
 
 form {
