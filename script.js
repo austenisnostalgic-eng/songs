@@ -1,15 +1,9 @@
 // Register service worker for PWA functionality
+// Register service worker for PWA functionality
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
     .then(reg => console.log('Service Worker registered'))
     .catch(err => console.log('Service Worker registration failed', err));
-}
-if (songForm.dataset.listenerAdded === "true") {
-  console.log("Submit listener already attached — skipping duplicate.");
-} else {
-  songForm.dataset.listenerAdded = "true";
-
-  songForm.addEventListener('submit', handleSubmit);
 }
 
 /* -------------------------
@@ -28,6 +22,17 @@ const artistInput = document.getElementById('artistName');
 const artistSuggestions = document.getElementById('artistSuggestions');
 const confirmationScreen = document.getElementById('confirmationScreen');
 const resetBtn = document.getElementById('resetBtn');
+
+/* 🧩 Attach submit listener AFTER songForm exists */
+if (songForm) {
+  if (!songForm.dataset.listenerAdded) {
+    songForm.dataset.listenerAdded = "true";
+    console.log("✅ Submit listener attached.");
+    songForm.addEventListener('submit', handleSubmit);
+  } else {
+    console.log("⚠️ Submit listener already attached — skipping duplicate.");
+  }
+}
 
 /* Utility: update all visible rating numbers */
 function updateRatingDisplays() {
