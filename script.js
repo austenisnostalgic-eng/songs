@@ -1,145 +1,174 @@
 // Register service worker for PWA functionality
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js')
-        .then(reg => console.log('Service Worker registered'))
-        .catch(err => console.log('Service Worker registration failed'));
+  navigator.serviceWorker.register('service-worker.js')
+    .then(reg => console.log('Service Worker registered'))
+    .catch(err => console.log('Service Worker registration failed', err));
 }
 
-// Storage for artists
-let artists = [];
-
-// Rating values
+/* -------------------------
+   Ratings state & DOM refs
+   ------------------------- */
 const ratings = {
-    overall: 5,
-    nostalgia: 5,
-    lyricism: 5,
-    novelty: 5,
-    iconicness: 5
+  overall: 5,
+  nostalgia: 5,
+  lyricism: 5,
+  novelty: 5,
+  iconicness: 5
 };
 
-// DOM elements
 const songForm = document.getElementById('songForm');
 const artistInput = document.getElementById('artistName');
 const artistSuggestions = document.getElementById('artistSuggestions');
 const confirmationScreen = document.getElementById('confirmationScreen');
 const resetBtn = document.getElementById('resetBtn');
 
-// Initialize rating displays
-updateRatingDisplays();
-
-// Rating button handlers
-document.querySelectorAll('.rating-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const ratingType = this.dataset.rating;
-        const isUp = this.classList.contains('up');
-
-        if (isUp && ratings[ratingType] < 10) {
-            ratings[ratingType]++;
-        } else if (!isUp && ratings[ratingType] > 1) {
-            ratings[ratingType]--;
-        }
-
-        updateRatingDisplays();
-    });
-});
-
+/* Utility: update all visible rating numbers */
 function updateRatingDisplays() {
-    for (let key in ratings) {
-        const el = document.getElementById(`${key}Value`);
-        if (el) el.textContent = ratings[key];
-    }
+  Object.keys(ratings).forEach(key => {
+    const el = document.getElementById(`${key}Value`);
+    if (el) el.textContent = ratings[key];
+  });
 }
 
-// Artist autocomplete
-artistInput.addEventListener('input', function() {
-    const query = this.value.trim().toLowerCase();
+/* Clamp helper */
+function clamp(v, min = 1, max = 10) {
+  return Math.max(min, Math.min(max, v));
+}
 
-    if (query.length === 0) {
+/* -------------------------
+   BUTTON HANDLING (robust)
+   - uses event delegation so it works even if button text/node is clicked
+   - clamps 1..10
+   ------------------------- */
+document.addEventListener('click', function (e) {
+  const btn = e.target.closest('.rating-btn');
+  if (!btn) return; // not a rating button
+
+  // avoid interfering with other clickable items
+  e.preventDefault();
+  e.stopPropagation();
+
+  const ratingType = btn.dataset && btn.dataset.rating;
+  if (!ratingType || !(ratingType in ratings)) {
+    console.warn('Unknown rating type:', ratingType);
+    return;
+  }
+
+  const delta = btn.classList.contains('up') ? 1 : -1;
+  ratings[ratingType] = clamp(ratings[ratingType] + delta, 1, 10);
+
+  updateRatingDisplays();
+});
+
+/* -------------------------
+   Artist autocomplete (unchanged)
+   ------------------------- */
+let artists = []; // in-memory list
+
+artistInput && artistInput.addEventListener('input', function () {
+  const query = this.value.trim().toLowerCase();
+  if (!query) {
+    artistSuggestions.classList.remove('active');
+    artistSuggestions.innerHTML = '';
+    return;
+  }
+  const matches = artists.filter(a => a.toLowerCase().startsWith(query));
+  if (matches.length) {
+    artistSuggestions.innerHTML = matches.map(a => `<div class="suggestion-item">${a}</div>`).join('');
+    artistSuggestions.classList.add('active');
+
+    document.querySelectorAll('.suggestion-item').forEach(item => {
+      item.addEventListener('click', function () {
+        artistInput.value = this.textContent;
         artistSuggestions.classList.remove('active');
         artistSuggestions.innerHTML = '';
-        return;
-    }
-
-    const matches = artists.filter(artist =>
-        artist.toLowerCase().startsWith(query)
-    );
-
-    if (matches.length > 0) {
-        artistSuggestions.innerHTML = matches
-            .map(artist => `<div class="suggestion-item">${artist}</div>`)
-            .join('');
-        artistSuggestions.classList.add('active');
-
-        document.querySelectorAll('.suggestion-item').forEach(item => {
-            item.addEventListener('click', function() {
-                artistInput.value = this.textContent;
-                artistSuggestions.classList.remove('active');
-                artistSuggestions.innerHTML = '';
-            });
-        });
-    } else {
-        artistSuggestions.classList.remove('active');
-        artistSuggestions.innerHTML = '';
-    }
+      });
+    });
+  } else {
+    artistSuggestions.classList.remove('active');
+    artistSuggestions.innerHTML = '';
+  }
 });
 
-// Close suggestions when clicking outside
-document.addEventListener('click', function(e) {
-    if (!artistInput.contains(e.target) && !artistSuggestions.contains(e.target)) {
-        artistSuggestions.classList.remove('active');
-    }
+/* Close suggestions when clicking outside */
+document.addEventListener('click', function (e) {
+  if (!artistInput.contains(e.target) && !artistSuggestions.contains(e.target)) {
+    artistSuggestions.classList.remove('active');
+  }
 });
 
-// Form submission
-songForm.addEventListener('submit', function(e) {
-    e.preventDefault();
+/* -------------------------
+   Form submission
+   ------------------------- */
+songForm && songForm.addEventListener('submit', function (e) {
+  e.preventDefault();
 
-    const songData = {
-        songName: document.getElementById('songName').value,
-        artistName: document.getElementById('artistName').value,
-        genre: document.getElementById('genre').value,
-        ratings: { ...ratings },
-        timestamp: new Date().toISOString()
-    };
+  const songData = {
+    songName: document.getElementById('songName').value || '',
+    artistName: document.getElementById('artistName').value || '',
+    genre: document.getElementById('genre').value || '',
+    ratings: { ...ratings },
+    timestamp: new Date().toISOString()
+  };
 
-    if (!artists.includes(songData.artistName)) {
-        artists.push(songData.artistName);
-        artists.sort();
-    }
+  // add artist to in-memory list if new
+  if (songData.artistName && !artists.includes(songData.artistName)) {
+    artists.push(songData.artistName);
+    artists.sort();
+  }
 
-    console.log('Song data to be sent to Google Sheets:', songData);
-    showConfirmation(songData);
+  console.log('Song data to be sent to Google Sheets:', songData);
+
+  showConfirmation(songData);
 });
 
+/* -------------------------
+   Confirmation / reset
+   ------------------------- */
 function showConfirmation(songData) {
-    songForm.style.display = 'none';
+  if (!songForm) return;
+  songForm.style.display = 'none';
 
-    const detailsHTML = `
-        <p><strong>Song:</strong> ${songData.songName}</p>
-        <p><strong>Artist:</strong> ${songData.artistName}</p>
-        <p><strong>Genre:</strong> ${songData.genre}</p>
-        <hr style="margin: 15px 0; border: none; border-top: 1px solid #e2e8f0;">
-        <p><strong>Overall Rating:</strong> ${songData.ratings.overall}/10</p>
-        <p><strong>Nostalgia:</strong> ${songData.ratings.nostalgia}/10</p>
-        <p><strong>Lyricism:</strong> ${songData.ratings.lyricism}/10</p>
-        <p><strong>Novelty:</strong> ${songData.ratings.novelty}/10</p>
-        <p><strong>Iconicness:</strong> ${songData.ratings.iconicness}/10</p>
-    `;
+  const detailsHTML = `
+    <p><strong>Song:</strong> ${escapeHtml(songData.songName)}</p>
+    <p><strong>Artist:</strong> ${escapeHtml(songData.artistName)}</p>
+    <p><strong>Genre:</strong> ${escapeHtml(songData.genre)}</p>
+    <hr style="margin: 15px 0; border: none; border-top: 1px solid #e2e8f0;">
+    <p><strong>Overall Rating:</strong> ${songData.ratings.overall}/10</p>
+    <p><strong>Nostalgia:</strong> ${songData.ratings.nostalgia}/10</p>
+    <p><strong>Lyricism:</strong> ${songData.ratings.lyricism}/10</p>
+    <p><strong>Novelty:</strong> ${songData.ratings.novelty}/10</p>
+    <p><strong>Iconicness:</strong> ${songData.ratings.iconicness}/10</p>
+  `;
 
-    document.getElementById('songDetails').innerHTML = detailsHTML;
-    confirmationScreen.classList.remove('hidden');
+  document.getElementById('songDetails').innerHTML = detailsHTML;
+  confirmationScreen.classList.remove('hidden');
 }
 
-// Reset button
-resetBtn.addEventListener('click', function() {
-    songForm.reset();
+resetBtn && resetBtn.addEventListener('click', function () {
+  if (!songForm) return;
+  songForm.reset();
 
-    for (let key in ratings) {
-        ratings[key] = 5;
-    }
-    updateRatingDisplays();
+  Object.keys(ratings).forEach(k => ratings[k] = 5);
+  updateRatingDisplays();
 
-    confirmationScreen.classList.add('hidden');
-    songForm.style.display = 'block';
-    window.scrollTo(0, 0);
+  confirmationScreen.classList.add('hidden');
+  songForm.style.display = 'block';
+  window.scrollTo(0, 0);
 });
+
+/* -------------------------
+   Small safety helper
+   ------------------------- */
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/* initialize UI */
+updateRatingDisplays();
