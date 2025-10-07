@@ -117,6 +117,14 @@ songForm && songForm.addEventListener('submit', function (e) {
     artists.sort();
   }
 
+  fetch("https://script.google.com/macros/s/AKfycbze8Eotnwu_8BP51ieNSK9ArTauD6LwMFE8v67UFMYAkO2izptyjs-6qLLeLboJ7tlT/exec", {
+      method: "POST",
+      body: JSON.stringify(songData),
+  })
+  .then(response => response.json())
+  .then(data => console.log("Sheet updated:", data))
+  .catch(error => console.error("Error:", error));
+
   console.log('Song data to be sent to Google Sheets:', songData);
 
   showConfirmation(songData);
