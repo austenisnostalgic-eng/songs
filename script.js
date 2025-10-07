@@ -111,29 +111,11 @@ songForm && songForm.addEventListener('submit', function (e) {
     timestamp: new Date().toISOString()
   };
 
-  // add artist to in-memory list if new
+  // Add artist to in-memory list if new
   if (songData.artistName && !artists.includes(songData.artistName)) {
     artists.push(songData.artistName);
     artists.sort();
   }
-
-  // when form is submitted
-  songForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-  
-      const songData = {
-          songName: document.getElementById('songName').value,
-          artistName: document.getElementById('artistName').value,
-          genre: document.getElementById('genre').value,
-          ratings: {
-              overall: ratings.overall,
-              nostalgia: ratings.nostalgia,
-              lyricism: ratings.lyricism,
-              novelty: ratings.novelty,
-              iconicness: ratings.iconicness
-          },
-          timestamp: new Date().toISOString()
-      };
   
       fetch('https://script.google.com/macros/s/AKfycbw3LP9QJMtt__dkTQv805Me9SX6hRchAj8bnsHA6leBJeOu_7c-GsVCEyGW_W627zYv/exec', {
           method: 'POST',
