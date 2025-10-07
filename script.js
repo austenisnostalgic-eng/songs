@@ -117,13 +117,29 @@ songForm && songForm.addEventListener('submit', function (e) {
     artists.sort();
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbze8Eotnwu_8BP51ieNSK9ArTauD6LwMFE8v67UFMYAkO2izptyjs-6qLLeLboJ7tlT/exec", {
-      method: "POST",
-      body: JSON.stringify(songData),
-  })
-  .then(response => response.json())
-  .then(data => console.log("Sheet updated:", data))
-  .catch(error => console.error("Error:", error));
+  songForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const songData = {
+        songName: document.getElementById('songName').value,
+        artistName: document.getElementById('artistName').value,
+        genre: document.getElementById('genre').value,
+        ratings: {
+            overall: ratings.overall,
+            nostalgia: ratings.nostalgia,
+            lyricism: ratings.lyricism,
+            novelty: ratings.novelty,
+            iconicness: ratings.iconicness
+        }
+    };
+
+    // Send to Google Sheets
+    sendToSheet(songData);
+
+    // Show confirmation screen
+    showConfirmation(songData);
+});
+
 
   console.log('Song data to be sent to Google Sheets:', songData);
 
@@ -180,3 +196,16 @@ function escapeHtml(str) {
 
 /* initialize UI */
 updateRatingDisplays();
+
+// Function to send song data to Google Sheets
+function sendToSheet(songData) {
+    fetch('https://script.google.com/macros/s/AKfycbyUfA_uw_Jk4y9NWoIYpTcdV43HTubYRhSn8TeBdaUweyujUiXSFLg9yDLvFzmHOot_/exec', {
+        method: 'POST',
+        body: JSON.stringify(songData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Google Sheets response:', data);
+    })
+    .catch(error => console.error('Error sending to Sheets:', error));
+}
