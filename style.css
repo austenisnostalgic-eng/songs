@@ -185,9 +185,13 @@ input:checked + .slider:before {
     font-weight: bold;
 }
 
-.rating-inline {
+.rating-inline2 {
     display: inline-block;
-    width: 130px;
+    width: 50px;
+}
+.rating-inline1 {
+    display: inline-block;
+    width: 100px;
 }
 
 .rating-label {
