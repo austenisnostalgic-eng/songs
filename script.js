@@ -4,6 +4,13 @@ if ('serviceWorker' in navigator) {
     .then(reg => console.log('Service Worker registered'))
     .catch(err => console.log('Service Worker registration failed', err));
 }
+if (songForm.dataset.listenerAdded === "true") {
+  console.log("Submit listener already attached — skipping duplicate.");
+} else {
+  songForm.dataset.listenerAdded = "true";
+
+  songForm.addEventListener('submit', handleSubmit);
+}
 
 /* -------------------------
    Ratings state & DOM refs
@@ -100,7 +107,7 @@ document.addEventListener('click', function (e) {
 /* -------------------------
    Form submission
    ------------------------- */
-songForm && songForm.addEventListener('submit', function (e) {
+function handleSubmit(e) {
   e.preventDefault();
 
   const songData = {
@@ -117,18 +124,26 @@ songForm && songForm.addEventListener('submit', function (e) {
     artists.sort();
   }
 
-  console.log('Song data to be sent to Google Sheets:', songData);
+  console.log('Submitting song data:', songData);
 
-  // Send to Google Sheets
+  const submitBtn = songForm.querySelector('button[type="submit"]');
+  if (submitBtn) submitBtn.disabled = true;
+
   fetch('https://script.google.com/macros/s/AKfycbw3LP9QJMtt__dkTQv805Me9SX6hRchAj8bnsHA6leBJeOu_7c-GsVCEyGW_W627zYv/exec', {
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(songData)
   })
-  .then(() => showConfirmation(songData))
-  .catch(err => console.error('Error sending to Google Sheets:', err));
-});
+  .then(() => {
+    console.log('Song successfully sent!');
+    showConfirmation(songData);
+  })
+  .catch(err => console.error('Error sending to Google Sheets:', err))
+  .finally(() => {
+    if (submitBtn) submitBtn.disabled = false;
+  });
+}
 
 
 /* -------------------------
