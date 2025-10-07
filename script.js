@@ -115,6 +115,12 @@ document.addEventListener('click', function (e) {
 function handleSubmit(e) {
   e.preventDefault();
 
+  if (songForm.dataset.submitting === "true") {
+    console.log("⏳ Already submitting — ignoring duplicate click.");
+    return;
+  }
+  songForm.dataset.submitting = "true";
+
   const songData = {
     songName: document.getElementById('songName').value || '',
     artistName: document.getElementById('artistName').value || '',
@@ -146,8 +152,10 @@ function handleSubmit(e) {
   })
   .catch(err => console.error('Error sending to Google Sheets:', err))
   .finally(() => {
-    if (submitBtn) submitBtn.disabled = false;
-  });
+  if (submitBtn) submitBtn.disabled = false;
+  songForm.dataset.submitting = "false";
+});
+  );
 }
 
 
